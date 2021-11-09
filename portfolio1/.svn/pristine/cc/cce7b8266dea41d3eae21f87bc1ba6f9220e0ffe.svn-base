@@ -1,0 +1,88 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+	<jsp:include page="../common/head.jsp" />
+	<style>
+	.msg .pwdckmsg{height:20px;}
+	</style>
+</head>
+
+<body>
+	<jsp:include page="../common/header.jsp" />
+	<main class="login p-5">
+	<form method="post" class="form-group">
+		<fieldset>
+			<legend>회원 정보 수정</legend>
+			<label for="id">아이디</label>
+			<p class="msg">회원 ID : ${member.id}</p>
+			
+			<label for="pwd">비밀번호</label>
+			<input type="password" name="pwd" id="pwd" class="form-control" placeholder="수정할 비밀번호를 입력하세요">
+			<p class="msg"></p>
+			
+			<label for="pwd">비밀번호 확인</label>
+			<input type="password" id="pwdck" class="form-control" placeholder="비밀번호를 확인하세요">
+			<p class="pwdckmsg"></p>
+			
+			<label for="email">이메일</label>
+			<input type="text" name="email" id="email" class="form-control" placeholder="수정할 이메일을 입력하세요">
+			<p class="msg"></p>
+			
+			<label for="name">이름</label>
+			<input type="text" name="name" id="name" class="form-control" placeholder="수정할 이름을 입력하세요">
+			<p class="msg"></p>
+			
+			<button class="btn btn-primary" id="btnJoin">수정하기</button>
+		</fieldset>
+	</form>
+	</main>
+	<script>
+		$(function(){
+			$("#btnJoin").click(function(){
+				var password1 = $("#pwd").val();
+				var password2 = $("#pwdck").val();
+				var email = $("#email").val();
+				var name = $("#name").val();
+		         if(password1 == "") {
+		        	 alert("비밀번호를 입력하세요");
+		        	 pwd.focus();
+		        	 return false;
+		         }
+		         if(password2 == "") {
+		        	 alert("비밀번호를 확인하세요");
+		        	 pwdck.focus();
+		        	 return false;
+		         }
+		         if(email == "") {
+		        	 alert("이메일을 입력하세요");
+		        	 $("#email").focus();
+		        	 return false;
+		         }
+		         if(name == "") {
+		        	 alert("이름을 입력하세요");
+		        	 $("#name").focus();
+		        	 return false;
+		         }
+		         return confirm("회원 정보를 수정하시겠습니까?");
+			})
+			
+		})
+	
+	
+	   $(function(){
+		   $("#pwdck").keyup(function(){
+			   var password1 = $("#pwd").val();
+			   var password2 = $("#pwdck").val();
+			   if(password1 != password2){
+				   $("#pwdck").next().text("비밀번호가 일치하지 않습니다.").css("color","red");
+			   } else {
+				   $("#pwdck").next().text("").css("color","green");
+			   }
+		   })
+	   })
+	
+	</script>
+	<jsp:include page="../common/footer.jsp" />
+</body>
+</html>

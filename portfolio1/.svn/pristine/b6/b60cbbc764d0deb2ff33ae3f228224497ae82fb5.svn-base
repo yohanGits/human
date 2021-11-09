@@ -1,0 +1,54 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<jsp:include page="../common/head.jsp" />
+</head>
+
+<body>
+	<jsp:include page="../common/header.jsp" />
+	<main class="findPwd">
+
+	<form id="form1" method="post">
+		<fieldset>
+			<legend>인증번호 확인</legend>
+			<table>
+				<tr>
+					<td><span>인증번호</span></td>
+					<td><input type="text" id="code" onkeyup="checkCode()" name="code" placeholder="인증번호를 입력하세요">
+						<p class="checkCode"></p>
+				</tr>
+				<tr>
+					<td><input type="hidden" readonly="readonly" 
+					id="codecheck" name="codecheck" value="<%=request.getAttribute("code")%>"></td>
+				</tr>
+			</table>
+			<input id = "certi" type="hidden" value='인증하기'>
+		</fieldset>
+	</form>
+	</main>
+	<jsp:include page="../common/footer.jsp" />
+	<script>
+		function checkCode(){
+			var v1 = $("#codecheck").val();
+			var v2 = $("#code").val();
+			if(v1!=v2){
+				 $("#code").next().text("인증 코드가 일치하지 않습니다.").css("color","red");
+				 checkNull();
+			} else {
+				$("#code").next().text("인증 되었습니다").css("color","green");
+				check();
+			}
+			
+		}
+		function check(){
+			var certi = $("#certi");
+			certi.type="submit";
+		}
+		function checkNull(){
+			var certi = $("#certi");
+			certi.type="hidden";
+		}
+	</script>
+</body>
+</html>

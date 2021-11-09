@@ -1,0 +1,35 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+	<jsp:include page="../common/head.jsp" />
+	<style>
+	.msg .pwdckmsg{height:20px;}
+	</style>
+</head>
+
+<body>
+	<jsp:include page="../common/header.jsp" />
+	<main class="login p-5">
+		<fieldset>
+			<legend>회원 정보 수정</legend>
+			<label for="id">아이디</label>
+			<p class="msg">회원 ID : ${member.id}</p>
+		
+			<label for="email">이메일</label>
+			<p class="msg">회원 Email : ${member.email}</p>
+			
+			<label for="name">이름</label>
+			<p class="msg">회원 이름 : ${member.name}</p>
+			
+			<a href="index.html" class="btn btn-primary">뒤로</a>
+			<a href="changeInfo" class="btn btn-primary">정보수정</a>
+			<a href="memberOut" class="btn btn-primary">회원탈퇴</a>
+		</fieldset>
+	</main>
+	<script>
+
+	</script>
+	<jsp:include page="../common/footer.jsp" />
+</body>
+</html>

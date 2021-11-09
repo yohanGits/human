@@ -1,0 +1,42 @@
+package dao;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+import util.DBconn;
+import vo.Reply;
+
+public class ReplyDao {
+	public List<Reply> list(Long bno){
+		Connection conn = DBconn.getConnection();
+		List<Reply> list = new ArrayList<>();
+		try {
+			String sql = "SELECT\r\n" + 
+					"	RNO, TITLE, CONTENT, TO_CHAR(REGDATE, 'YY/MM/DD') AS REGDATE, ID, BNO \r\n" + 
+					"FROM TBL_REPLY WHERE RNO > 0 AND BNO = ?";
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			pstmt.setLong(1, bno);
+			ResultSet rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				int idx = 1;
+				Long rno = rs.getLong(idx++);
+				String title = rs.getString(idx++);
+				String content = rs.getString(idx++);
+				String regDate = rs.getString(idx++);
+				String id = rs.getString(idx++);
+				
+				Reply reply = new Reply(rno, title, content, regDate, id, bno);
+				list.add(reply);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+}

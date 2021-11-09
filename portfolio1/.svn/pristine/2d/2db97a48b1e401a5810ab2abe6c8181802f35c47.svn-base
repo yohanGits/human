@@ -1,0 +1,43 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<jsp:include page="../common/head.jsp" />
+<style type="text/css"></style>
+</head>
+
+<body>
+	<jsp:include page="../common/header.jsp" />
+	
+	
+	<main class="findID">
+	<form method="post">
+		<fieldset>
+			<legend>Id찾기</legend>
+			<h4><label for="name">이름</label></h4>
+			<input type="text" name="name" id="name">
+			<h4><label for="email">이메일</label></h4>
+			<input type="text" name="email" id="email">
+			<p><button id="findID">아이디 찾기</button></p>
+			<h3>${param.msg}</h3>
+		</fieldset>
+	</form>
+	<a href="index.html" class="btn btn-primary">뒤로</a>
+	<a href="findPwd" class="btn btn-primary">비밀번호 찾기</a>
+	</main>
+	
+	<jsp:include page="../common/footer.jsp" />
+	<script>
+		$(function(){
+			$("#findID").click(function(){
+				var name = $("#name").val();
+				var email = $("#email").val();
+				if(name == "" && email == ""){
+					alert("모든 정보를 입력해 주세요");
+					return;
+				}
+			})
+		})
+	</script>
+</body>
+</html>

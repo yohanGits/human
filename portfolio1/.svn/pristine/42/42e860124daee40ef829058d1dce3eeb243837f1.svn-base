@@ -1,0 +1,27 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<jsp:include page="../common/head.jsp" />
+<style type="text/css"></style>
+
+</head>
+
+<body>
+	<jsp:include page="../common/header.jsp" />
+	
+	
+	<main class="findID1">
+	<div class="wrap" style="height: 300px">
+	<div id="userName">${param.name}님의 ID는</div>
+	<div id="userId">[${param.id}] 입니다</div>
+	</div>
+	<a href="login" class="btn btn-primary">로그인</a>
+	<a href="findPwd" class="btn btn-primary">비밀번호 찾기</a>
+	</main>
+	
+	<jsp:include page="../common/footer.jsp" />
+	<script>
+	</script>
+</body>
+</html>

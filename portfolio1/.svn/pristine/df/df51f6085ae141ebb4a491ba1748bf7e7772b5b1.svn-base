@@ -1,0 +1,14 @@
+package service;
+
+import java.util.List;
+
+import vo.Reply;
+
+public interface ReplyService {
+	// 댓글 쓰기
+	// 댓글 목록
+	List<Reply> list(Long bno);
+	// 댓글 단일 조회
+	// 댓글 삭제
+	
+}

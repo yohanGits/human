@@ -1,0 +1,16 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<header>
+        <div>
+            <div>
+                <a href="<%=request.getContextPath()%>/index.html"><div><div class="img-box">이미지 박스</div></div></a>
+                <p>사이트 간략 소개</p>
+            </div>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#"></a>공지사항</li>
+                <li><a href="<%=request.getContextPath()%>/board/list">자유게시판</a></li>
+                <li><a href="#"></a>갤러리</li>
+            </ul>
+        </nav>
+ </header>    

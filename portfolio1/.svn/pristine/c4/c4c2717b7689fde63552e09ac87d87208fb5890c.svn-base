@@ -1,0 +1,16 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>2021. 9. 1.오후 4:08:35</title>
+</head>
+<body>
+	<form method="post">
+		<input type="text" name="id">
+		<input type="password" name="pwd">
+		<button>로그인</button>
+	</form>
+	<h3>${param.msg}</h3>
+</body>
+</html>

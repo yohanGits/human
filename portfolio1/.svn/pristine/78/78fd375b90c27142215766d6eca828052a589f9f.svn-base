@@ -1,0 +1,62 @@
+package dao;
+
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+
+import util.DBconn;
+import vo.Member;
+
+public class MemberDao {
+	public List<Member> getMembers() {
+		// 1. Connection 취득
+		// 2. 문장(Statement) 생성
+		// 3. Select >> 결과집합(Resultset)
+		//     >> RS순회
+		
+		Connection conn = DBconn.getConnection();
+		List<Member> list = new ArrayList<Member>();
+		try {
+			Statement stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery("SELECT ID, PWD, EMAIL, NAME FROM TBL_MEMBER");
+			
+			while(rs.next()) {
+				String id = rs.getString("id");
+				String pwd = rs.getString("pwd");
+				String email = rs.getString("email");
+				String name = rs.getString("name");
+				
+				Member member = new Member(id, pwd, email, name);
+				list.add(member);
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return list;
+	}
+	
+	public boolean login(String id, String pwd) {
+		Connection conn = DBconn.getConnection();
+		boolean success = false;
+		try {
+			Statement stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery("SELECT ID, PWD, EMAIL, NAME FROM TBL_MEMBER "
+					+ "WHERE ID='" + id + "' AND PWD = '" + pwd + "'");
+			success = rs.next();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return success;
+	}
+	public static void main(String[] args) {
+		MemberDao dao = new MemberDao();
+		System.out.println(dao.login("javaman", "1234"));
+		System.out.println(dao.login("javaman", "5678"));
+		System.out.println(dao.login("javaman1", "1234"));
+	}
+}

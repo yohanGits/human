@@ -1,0 +1,82 @@
+<%@page import="vo.Member"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<jsp:include page="head.jsp" />
+</head>
+<body>
+	<jsp:include page="header.jsp" />
+    <main class="index">
+        <section>
+            <h2>야야야야야</h2>
+            <article>
+                <div class="img-box">이미지 박스</div>
+                <div>
+                    <h4>불어 보내는 것은 청춘의</h4>
+                    <p>끓는 피에 뛰노는 심장은 거신의</p>
+                </div>
+            </article>
+
+            <h2>이 황금시대의 가치를 충분히</h2>
+            <ul class="width40">
+                <li>
+                    <div class="img-box">이미지박스</div>
+                    <div>
+                        <h4>청춘은 인생의 황금시대다 우리는</h4>
+                        <p>이상 있음으로써</p>
+                    </div>
+                </li>
+                <li>
+                    <div class="img-box">이미지박스</div>
+                    <div>
+                        <h4>청춘은 인생의 황금시대다 우리는</h4>
+                        <p>이상 있음으로써</p>
+                    </div>
+                </li>
+                <li>
+                    <div class="img-box">이미지박스</div>
+                    <div>
+                        <h4>청춘은 인생의 황금시대다 우리는</h4>
+                        <p>이상 있음으로써</p>
+                    </div>
+                </li>
+                <li>
+                    <div class="img-box">이미지박스</div>
+                    <div>
+                        <h4>청춘은 인생의 황금시대다 우리는</h4>
+                        <p>이상 있음으로써</p>
+                    </div>
+                </li>
+            </ul>
+            <h2>이 황금시대의 가치를 충분히</h2>
+            <ul class="width100">
+                <li>
+                    <div><div class="img-box">이미지 박스</div></div>
+                    <p>풍부하게 하는</p>
+                </li>
+                <li>
+                    <div><div class="img-box">이미지 박스</div></div>
+                    <p>풍부하게 하는</p>
+                </li>
+                <li>
+                    <div><div class="img-box">이미지 박스</div></div>
+                    <p>풍부하게 하는</p>
+                </li>
+            </ul>
+        </section>
+        <aside>
+        <% if(session.getAttribute("member") == null) { %>
+            <form action="login">
+                <input type="submit" value="로그인">
+            </form>
+            <p><a href="join">회원가입</a> <a href="#">ID/PW찾기</p>
+        <% } else {  %>
+			<p><%=((Member)session.getAttribute("member")).getName()%>님 환영합니다.</p>
+			<p><a href="join">정보수정</a> <a href="logout">로그아웃</a>
+		<% } %>
+        </aside>
+    </main>
+ 	<jsp:include page="footer.jsp" />
+</body>
+</html>

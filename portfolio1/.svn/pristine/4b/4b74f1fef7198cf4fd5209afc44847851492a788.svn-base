@@ -1,0 +1,40 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<jsp:include page="../common/head.jsp" />
+</head>
+
+<body>
+	<jsp:include page="../common/header.jsp" />
+	<main class="findPwd">
+	<%! public int getRandom(){
+		int random = 0;
+		random = (int)Math.floor((Math.random()*(99999-10000+1)))+10000;
+		return random;
+		} %>
+	<form method="post">
+		<fieldset>
+			<legend>비밀번호 찾기</legend>
+			<table>
+				<tr>
+					<td>아이디</td>
+					<td><input type="text" id="id" name="id" placeholder="아이디를 입력하세요"></td>	
+				</tr>
+				<tr>
+					<td>이메일</td>
+					<td><input type="email" id="email" name="email" placeholder="이메일을 입력하세요"></td>
+					<td><input type="submit" id="submit" value="인증번호 발송"></td>
+					<td><input type="hidden" readonly="readonly" 
+					id="codecheck" name="codecheck" value="<%=getRandom()%>"></td>
+				</tr>
+			</table>
+		</fieldset>
+	</form>
+	</main>
+	<jsp:include page="../common/footer.jsp" />
+	<script>
+
+	</script>
+</body>
+</html>

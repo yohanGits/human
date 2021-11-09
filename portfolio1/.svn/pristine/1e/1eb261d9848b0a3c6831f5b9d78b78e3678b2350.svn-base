@@ -1,0 +1,16 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<header>
+        <div class="header">
+            <div>
+                <a href="<%=request.getContextPath()%>/index.html"><img class="img-box" src="${pageContext.request.contextPath}/images/logo.png" alt="로고"></a>
+                <p>Amazing Nature</p>
+            </div>
+        </div>
+        <nav class="navi">
+            <ul>
+                <li><a href="#">공지사항</a></li>
+                <li><a href="<%=request.getContextPath()%>/board/list">자유게시판</a></li>
+                <li><a href="<%=request.getContextPath()%>/gallery/list">갤러리</a></li>
+            </ul>
+        </nav>
+ </header>    
