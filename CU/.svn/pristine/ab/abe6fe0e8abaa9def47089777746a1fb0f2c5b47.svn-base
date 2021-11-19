@@ -1,0 +1,47 @@
+package cu.vo;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class CuDrink extends CuProduct{
+	static List<CuProduct> drinks = new ArrayList<CuProduct>();
+	public CuDrink() {}
+	
+	public CuDrink(int no, String name, int price) {
+		super(no, name, price);
+	}
+	/* 손요한
+	 * 21.07.30
+	 * 음료품목 리스트
+	 */
+	public static void drink() {
+		drinks.add(new CuDrink(1, "코카콜라", 1000));
+		drinks.add(new CuDrink(2, "사이다", 1000));
+		drinks.add(new CuDrink(3, "포카리스웨트", 1200));
+		drinks.add(new CuDrink(4, "아이스아메리카노", 2000));
+		drinks.add(new CuDrink(5, "아메리카노", 1000));
+		drinks.add(new CuDrink(6, "소주", 1300));
+		drinks.add(new CuDrink(7, "맥주", 2000));
+		drinks.add(new CuDrink(8, "막걸리", 2500));
+		drinks.add(new CuDrink(9, "와인", 3500));
+
+		
+	}
+	public static void print() {
+		for(CuProduct drink : drinks) {
+			System.out.println(drink);
+		}
+	}
+	/*
+	 * 손요한
+	 * 21.07.30
+	 * 메뉴바 오버라이드
+	 */
+	@Override
+	public void printmenu() {
+		super.printmenu();
+	}
+
+	
+}
+

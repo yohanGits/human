@@ -1,0 +1,43 @@
+package cu.vo;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class CuTobacco extends CuProduct {
+	static List<CuProduct> tobbacs = new ArrayList<CuProduct>();
+
+	public CuTobacco() {}
+	
+	public CuTobacco(int no, String name, int price) {
+		super(no, name, price);
+	}
+	/* 손요한
+	 * 21.07.30
+	 * 담배품목 리스트
+	 */
+	public static void tobbacco() {
+		tobbacs.add(new CuTobacco(1, "말보로", 4500));
+		tobbacs.add(new CuTobacco(2, "에쎄체인지", 4500));
+		tobbacs.add(new CuTobacco(3, "보햄시가", 4500));
+		tobbacs.add(new CuTobacco(4, "팔리아멘트", 4500));
+		tobbacs.add(new CuTobacco(5, "아이스볼트GT", 4500));
+		tobbacs.add(new CuTobacco(6, "레종프렌치", 4500));
+		tobbacs.add(new CuTobacco(7, "던힐", 4500));
+		tobbacs.add(new CuTobacco(8, "전자담배", 59000));
+		tobbacs.add(new CuTobacco(9, "전자담배액상", 35000));
+	}
+	public static void print() {
+		for(CuProduct tobbacco : tobbacs) {
+			System.out.println(tobbacco);
+		}
+	}
+
+	@Override
+	public void printmenu() {
+		super.printmenu();
+	}
+
+
+	
+}
+	

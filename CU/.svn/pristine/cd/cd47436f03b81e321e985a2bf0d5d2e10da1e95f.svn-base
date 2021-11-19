@@ -1,0 +1,98 @@
+package cu.ex;
+
+import static cu.util.CuCommon.*;
+
+import java.io.ObjectInputStream.GetField;
+
+import cu.service.CuService;
+import cu.service.CuServiceImpl;
+import cu.vo.Customer;
+import cu.service.CuService;
+
+
+
+
+
+public class CuEx {
+	public static void main(String[] args) {
+		Customer customer = new Customer();
+		CuServiceImpl cu = new CuServiceImpl();
+		boolean flag = false;
+		
+		while (!flag) {
+			int kind = nextInt("1. 로그인 2. 회원가입");
+			switch (kind) {
+			case 1:
+				cu.login();
+				break;
+			case 2:
+				cu.add();
+			default:
+			System.out.println("잘못 입력하셨습니다. 다시 입력해주세요");
+			continue;
+			}
+//			①. 음료 ②. 담배 ③. 신선식품 ④. 과자 ⑤. 종료
+			System.out.println ("┌───────────────────┐");
+			int kind2 = nextInt("│① 구매자 ② 관리자│\n"
+							  + "└───────────────────┘");
+			if (kind2 == 1) {
+				System.out.println ("┌────────────────────────────────────┐");
+				int input = nextInt("│① 물품 조회 ② 구매 ③ 이전 ④ 종료│\n"
+							   	  + "└────────────────────────────────────┘");
+				switch (input) {
+				case 1:
+					// 손님 물품 조회 (물건 번호, 이름, 가격, 개수)
+				cu.inventory();
+					break;
+				case 2:
+					// 손님 물품 구매
+				cu.purchasebycustomer();
+					break;
+				case 3:
+					break;
+				case 4:
+					System.out.println("종료");
+					flag = true;
+					break;
+				default:
+					break;
+				}
+			} else {
+				System.out.println ("┌─────────────────────────────────────────────────────────────────────────┐");
+				int input = nextInt("│① 물품 조회 ② 구매 ③ 돈 조회 ④ 재고 ⑤ 팔린 물품 통계 ⑥ 이전 ⑦ 종료│\n"
+								  + "└─────────────────────────────────────────────────────────────────────────┘");
+				switch (input) {
+				case 1:
+					// 관리자 물품 조회 (모든 물품리스트 (번호, 이름, 가격)
+					cu.list();
+					return;
+				case 2:
+					// 관리자 물품 구매
+					cu.purchasebyadmin();
+					break;
+				case 3:
+					// 관리자 돈 조회
+					cu.money();
+					break;
+				case 4:
+					// 관리자 재고
+					cu.inventory();
+					break;
+				case 5:
+					// 팔린 물품 통계
+					cu.statistics();
+					break;
+				case 6:
+					break;
+				case 7:
+					System.out.println("종료");
+					flag = true;
+					break;
+				}
+			}
+		}
+	}
+
+	
+
+}

@@ -1,0 +1,206 @@
+package cu.service;
+
+import static cu.util.CuCommon.*;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import cu.vo.Customer;
+import cu.vo.Inventory;
+import cu.vo.Product;
+public class CuServiceImpl implements CuService {
+	
+	final String[] P_TYPES = {"Drink","Tobacco","Fastfood","Snack"};
+	Customer cc = new Customer();
+	// 회원 번호
+	int no;
+	/* @author 오석호
+	 * 재고 리스트
+	 */
+	List<Product> inventories = new Inventory().getInventories();
+	/* @author 오석호
+	 * 회원 정보
+	 */
+	List<Customer> information = new ArrayList<Customer>();
+	/* @author 오석호
+	 * 각품목별 리스트 생성
+	 */
+	List<Inventory> drinkinventories = new ArrayList<Inventory>();
+	List<Inventory> fastfoodinventories = new ArrayList<Inventory>();
+	List<Inventory> snackinventories = new ArrayList<Inventory>();
+	List<Inventory> tobaccoinventories = new ArrayList<Inventory>();
+		//곽승협 회원 가입용 어레이 리스트 추가 08.01
+	List<Customer> customer = new ArrayList<Customer>();{
+	
+		customer.add(new Customer(no++, "1111","1111",30,"관리자",1000000));
+		customer.add(new Customer(no++,"2222","2222",20,"구매자",10000,false));
+	}
+	
+
+	/* 손요한
+	 * 21.07.30
+	 * 관리자 물품 조회 메소드
+	 */
+	public void list() {
+		int a = kind()-1;
+		for(Product p : inventories) {
+			if(p.getClass().getSimpleName().equals(P_TYPES[a])) {
+				System.out.println(p);
+			}
+		}
+	}
+	
+	/* 오석호
+	 * 관리자 물품 구매, 
+	 * 중복물품 있을시 새로운 값 추가가 아닌 개수만 추가
+	 */
+	public void purchasebyadmin() {
+
+}
+	/* 손요한
+	 * 손님 물품 구매
+	 * 물건 구입 개수만큼 재고--
+	 * 입력한 개수 > 재고 시 재고부족알림
+	 * 구입완료시 구매자 돈 : 원가+((원가*0.2%)*개수)만큼 ++ / 소비자 돈 --
+	 * 수정 필요할 수도 있음
+	 */
+	public void purchasebycustomer() {
+
+	}
+	
+	/* 오석호
+	 * 21.07.30
+	 * 관리자,손님 재고 조회
+	 * 손님 재고 조회는 수정 필요할 수도 있음
+	 */
+	public void inventory() {
+		switch(kind()) {
+		case 1 :
+			for(Inventory a : drinkinventories)
+				System.out.println(a);
+			break;
+		case 2 :
+			for(Inventory a : tobaccoinventories)
+				System.out.println(a);
+			break;
+		case 3 :
+			for(Inventory a : fastfoodinventories)
+				System.out.println(a);
+			break;
+		case 4 :
+			for(Inventory a : snackinventories)
+				System.out.println(a);
+			break;
+		case 5 :
+			return;
+		}
+	}
+	/**
+	 * @author 오석호
+	 * 관리자 돈 조회
+	 */
+	public void money() {
+		System.out.println("관리자 돈:"+cc.getMoney());
+	}
+	
+	/* 손요한
+	 * 21.07.31
+	 * 팔린풀품통계 리스트
+	 */
+	List<Product> statistics = new ArrayList<Product>();
+	public void statistics() {
+		printsoldproduct();
+		
+	}
+	/*
+	 * 손요한
+	 * 21.07.31
+	 * 통계 조회시 메뉴창 생성
+	 */
+	public void printsoldproduct() {
+		System.out.println("====상품명===팔린개수====수익==");
+	
+	/* 오석호
+	 * 21.07.30
+	 * 재고 조회시 메뉴창 생성
+	 */
+	}
+	public void printproduct() {
+		System.out.println("===상품번호====상품명========가격========재고====");
+	}
+	/**
+	 * @author 오석호
+	 * 자주쓰이는 문구 매서드만듬
+	 */
+	public int kind() {
+		System.out.println("┌───────────────────────────────────────────┐");
+		int kind = nextInt("│① 음료 ② 담배 ③ 신선식품 ④ 과자 ⑤ 종료│\n"
+						 + "└───────────────────────────────────────────┘");
+		return kind;
+	}
+
+	//21.8.5 곽승협 로그인 매서드 추가
+	public void login() {
+		printArray(customer);
+		String pw="";
+		String id = nextLine("회원님의 아이디를 입력해주세요");
+		if (!customer.equals(id)){
+			System.out.println("아이디가 맞지않습니다 아이디를 다시 입력해주세요.");
+			return;
+		} else {
+			pw = nextLine("회원님의 아이디를 입력해주세요");
+		}if (!customer.equals(pw)){
+			System.out.println("아이디가 맞지않습니다 아이디를 다시 입력해주세요.");
+			return;
+		} else {
+			System.out.println("Cu에 오신것을 환영합니다.");
+			}
+		
+		}
+	
+	public void add() {
+		customer.add(new Customer(no++,nextLine("아이디를 입력해주세요"),
+					  nextLine("패스워드를 입력해주세요"),
+					  nextInt("나이를 입력해주세요"),
+					  nextLine("이름을 입력해주세요"),
+					  nextInt("가진 금액을 입력해주세요")
+				));
+		
+		for (int i = 0; i < customer.size(); i++) {
+			
+			System.out.println(	customer.get(i));
+			
+		}
+		return;
+	}
+	public void modify() {
+		String id = nextLine("수정할 회원님의 아이디를 입력하세요");
+		
+	}
+
+	
+	private void printTitle() {
+		System.out.println("┌─────────────────────────────────────────────────┐");
+		System.out.println("회원번호  ID 	P/W   나이   이름 	돈");
+		System.out.println("└─────────────────────────────────────────────────┘");
+	}
+
+	private <Customer> void printArray(List<Customer> arr) {
+		printTitle();
+		for (int i = 0; i < arr.size(); i++) {
+			System.out.println("┌─────────────────────────────────────────────────┐");
+			System.out.println(	arr.get(i));
+			System.out.println("└─────────────────────────────────────────────────┘");
+		}
+	}
+	public Customer findBy1(int no) {
+		for (int i = 0; i < customer.size(); i++) {
+			if (no == customer.get(i).getNo()) {
+				return customer.get(i);
+			}
+		}
+		return null;
+	}
+}
+
+

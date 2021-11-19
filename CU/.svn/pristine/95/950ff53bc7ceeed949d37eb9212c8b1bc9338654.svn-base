@@ -1,0 +1,283 @@
+package cu.service;
+
+import static cu.util.CuCommon.*;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import cu.ex.Ex;
+import cu.vo.Customer;
+import cu.vo.Inventory;
+import cu.vo.Product;
+public class ServiceImpl implements Service {
+	/**
+	 * @author 오석호
+	 * (재고 리스트에서 품목별 구분을 위한 상수배열)
+	 */
+	final String[] P_TYPES = {"Drink","Tobacco","Fastfood","Snack"};
+	/** @author 오석호
+	 * (재고 리스트)
+	 */
+	List<Product> inventories = new Inventory().getInventories();
+	
+		//곽승협 회원 가입용 어레이 리스트 추가 08.01
+	Customer cc = new Customer();
+	int no;
+	List<Customer> customer = new ArrayList<Customer>();{
+	
+		customer.add(new Customer(no++, "1111","1111",30,"관리자",1000000));
+		customer.add(new Customer(no++,"2222","2222",20,"구매자",10000,false));
+	}
+	
+
+	/* 손요한
+	 * 21.07.30
+	 * 관리자 물품 조회 메소드
+	 */
+	public void list() {
+		int a = kind()-1;
+		for(Product p : inventories) {
+			if(p.getClass().getSimpleName().equals(P_TYPES[a])) {
+				System.out.println(p);
+			}
+		}
+	}
+	/**
+	 * @author 오석호
+	 * 관리자 돈 조회
+	 */
+	public void money() {
+//		System.out.println("관리자 돈:"+cc.getMoney());
+	}
+	/** 
+	 * @author 오석호
+	 * (구매자 메소드), 
+	 */
+	public void executeCustomer(Service cu) {
+
+		System.out.println ("┌────────────────────────────────────┐");
+		int input = nextInt("│① 물품 조회 ② 구매 ③ 이전 ④ 종료│\n" 
+						  + "└────────────────────────────────────┘");
+		switch (input) {
+		case 1:
+			// 손님 물품 조회 (물건 번호, 이름, 가격, 개수)
+			cu.inventory();
+			break;
+		case 2:
+			// 손님 물품 구매
+			cu.purchaseByCustomer();
+			break;
+		case 3:
+			break;
+		case 4:
+			System.out.println("종료");
+			Ex.setFlag(true);
+			return;
+		default:
+			break;
+		}
+
+	}
+	/** 
+	 * @author 오석호
+	 * (관리자 메소드), 
+	 */
+	public void executeAdmin(Service cu) {
+		System.out.println ("┌─────────────────────────────────────────────────────────────────────────┐");
+		int input = nextInt("│① 물품 조회 ② 구매 ③ 돈 조회 ④ 재고 ⑤ 팔린 물품 통계 ⑥ 이전 ⑦ 종료│\n"
+						  + "└─────────────────────────────────────────────────────────────────────────┘");
+		switch (input) {
+		case 1:
+			// 관리자 물품 조회 (모든 물품리스트 (번호, 이름, 가격)
+			cu.list();
+			return;
+		case 2:
+			// 관리자 물품 구매
+			cu.purchaseByAdmin();
+			break;
+		case 3:
+			// 관리자 돈 조회
+			cu.money();
+			break;
+		case 4:
+			// 관리자 재고
+			cu.inventory();
+			break;
+		case 5:
+			// 팔린 물품 통계
+			cu.statistics();
+			break;
+		case 6:
+			break;
+		case 7:
+			System.out.println("종료");
+			Ex.setFlag(true);
+			break;
+		}
+	}
+	
+	/** 
+	 * @author 오석호
+	 * (관리자 물품 구매), 
+	 */
+	public void purchaseByAdmin() {
+		list();
+		int no = nextInt("물건 번호를 입력하세요: ");
+		int ea = nextInt("개수를 입력하세요>");
+		Product inventories = findByInventories(no);
+		inventories.setEa(inventories.getEa() + ea);
+		}
+	/** 
+	 * @author 오석호
+	 * 관리자,손님 재고 조회
+	 */
+	public void inventory() {
+		list();
+	}
+	/**
+	 * @author 오석호
+	 * (재고 조회시 메뉴창 생성)
+	 */
+	
+	public void printProduct() {
+		System.out.println("===상품번호====상품명========가격========재고====");
+	}
+	/**
+	 * @author 오석호
+	 * (1 음료 2 담배 3 신선식품 4 과자 5 종료 의 숫자반환)
+	 */
+	public int kind() {
+		System.out.println("┌───────────────────────────────────────────┐");
+		int kind = nextInt("│① 음료 ② 담배 ③ 신선식품 ④ 과자 ⑤ 종료│\n"
+						 + "└───────────────────────────────────────────┘");
+		return kind;
+	}
+	/** 
+	 * @author 오석호
+	 * 재고 findBy
+	 */
+	public Product findByInventories(int no) {
+		for (int i = 0; i < inventories.size(); i++) {
+			if (no == inventories.get(i).getNo()) {
+				return inventories.get(i);
+			}
+		}
+		return null;
+	}
+	
+	/* 손요한
+	 * 손님 물품 구매
+	 * 물건 구입 개수만큼 재고--
+	 * 입력한 개수 > 재고 시 재고부족알림
+	 * 구입완료시 구매자 돈 : 원가+((원가*0.2%)*개수)만큼 ++ / 소비자 돈 --
+	 * 수정 필요할 수도 있음
+	 */
+	public void purchaseByCustomer() {
+
+	}
+	
+	/* 손요한
+	 * 21.07.31
+	 * 팔린풀품통계 리스트
+	 */
+	List<Product> statistics = new ArrayList<Product>();
+	private String sd;
+	public void statistics() {
+		printSoldProduct();
+		
+	}
+	/*
+	 * 손요한
+	 * 21.07.31
+	 * 통계 조회시 메뉴창 생성
+	 */
+	public void printSoldProduct() {
+		System.out.println("====상품명===팔린개수====수익==");
+	}
+	
+
+	//21.8.5 곽승협 로그인 매서드 변경
+	public void login() {
+		printArray(customer);
+		String pw="";
+		String userid = nextLine("회원님의 아이디를 입력해주세요");
+		
+	
+		if (!customer.contains(userid)){
+			System.out.println("아이디가 맞지않습니다 아이디를 다시 입력해주세요.");
+			return;
+		} else {
+			pw = nextLine("회원님의 패스워드를 입력해주세요");
+		}if (!customer.equals(pw)){
+			System.out.println("패스워드가 맞지않습니다 패스워드를 다시 입력해주세요.");
+			return;
+		} else {
+			System.out.println("Cu에 오신것을 환영합니다.");
+			}
+		
+		}
+	//21.8.5 곽승협 회원가입 매서드 변경
+	public void add() {
+		customer.add(new Customer(no++,nextLine("아이디를 입력해주세요"),
+					  nextLine("패스워드를 입력해주세요"),
+					  nextInt("나이를 입력해주세요"),
+					  nextLine("이름을 입력해주세요"),
+					  nextInt("가진 금액을 입력해주세요")
+				));
+		
+		for (int i = 0; i < customer.size(); i++) {
+			
+			System.out.println(	customer.get(i));
+			
+		}
+		return;
+	}
+	public void modify() {
+		String id = nextLine("수정할 회원님의 아이디를 입력하세요");
+		
+	}
+
+
+	private void printTitle() {
+		System.out.println("┌─────────────────────────────────────────────────┐");
+		System.out.println("회원번호  ID 	P/W   나이   이름 	돈");
+		System.out.println("└─────────────────────────────────────────────────┘");
+	}
+//21.8.5 곽승협 가입한 회원 표시용 매서드 추가
+	private <Customer> void printArray(List<Customer> arr) {
+		printTitle();
+		System.out.println("┌─────────────────────────────────────────────────┐");
+		for (int i = 0; i < arr.size(); i++) {
+			System.out.println(	arr.get(i));
+		
+		}
+		System.out.println("└─────────────────────────────────────────────────┘");
+	}
+	public void signUpLogin(Service cu) {
+		System.out.println("┌────────────────────┐");
+		int kind = nextInt("│①로그인 ② 회원가입│\n" 
+				 + 		   "└────────────────────┘");
+		switch (kind) {
+		case 1:
+		cu.login();
+		break;
+		case 2:
+		cu.add();
+		default:
+		System.out.println("잘못 입력하셨습니다. 다시 입력해주세요");
+		}
+	}
+
+	
+	public Customer findBy1(int no) {
+		for (int i = 0; i < customer.size(); i++) {
+			if (no == customer.get(i).getNo()) {
+				return customer.get(i);
+			}
+		}
+		return null;
+	}
+
+}
+
+

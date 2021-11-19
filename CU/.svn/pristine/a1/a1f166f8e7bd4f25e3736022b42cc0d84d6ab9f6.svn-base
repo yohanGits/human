@@ -1,0 +1,431 @@
+package cu.service;
+
+import static cu.util.CuCommon.*;
+
+import java.util.ArrayList;
+import java.util.List;
+
+
+import cu.vo.Customer;
+import cu.vo.CuDrink;
+import cu.vo.CuFastfood;
+import cu.vo.CuInventory;
+import cu.vo.CuProduct;
+import cu.vo.CuSnack;
+import cu.vo.CuTobacco;
+public class CuServiceImpl implements CuService {
+	
+	// 회원 번호
+	int no;
+	/* @author 오석호
+	 * 재고 리스트
+	 */
+	List<CuInventory> inventories = new ArrayList<CuInventory>();
+	/* @author 오석호
+	 * 회원 정보
+	 */
+	List<Customer> information = new ArrayList<Customer>();
+	/* @author 오석호
+	 * 각품목별 리스트 생성
+	 */
+	List<CuInventory> drinkinventories = new ArrayList<CuInventory>();
+	List<CuInventory> fastfoodinventories = new ArrayList<CuInventory>();
+	List<CuInventory> snackinventories = new ArrayList<CuInventory>();
+	List<CuInventory> tobaccoinventories = new ArrayList<CuInventory>();
+		//곽승협 회원 가입용 어레이 리스트 추가 08.01
+	List<Customer> customer = new ArrayList<Customer>();{
+	
+		customer.add(new Customer(no++, "1111","1111",30,"관리자",1000000));
+		customer.add(new Customer(no++,"2222","2222",20,"구매자",10000,false));
+	}
+	
+
+	{
+		CuDrink.drink();
+		CuTobacco.tobbacco();
+		CuFastfood.fastfood();
+		CuSnack.snack();
+		drinkinventories.add(new CuInventory(1, "코카콜라", 1000, 0));
+		drinkinventories.add(new CuInventory(2, "사이다", 1000, 0));
+		drinkinventories.add(new CuInventory(3, "포카리스웨트", 1200, 0));
+		drinkinventories.add(new CuInventory(4, "아이스아메리카노", 2000, 0));
+		drinkinventories.add(new CuInventory(5, "아메리카노", 1000, 0));
+		drinkinventories.add(new CuInventory(6, "소주", 1300, 0));
+		drinkinventories.add(new CuInventory(7, "맥주", 2000, 0));
+		drinkinventories.add(new CuInventory(8, "막걸리", 2500, 0));
+		drinkinventories.add(new CuInventory(9, "와인", 3500, 0));
+		fastfoodinventories.add(new CuInventory(1, "삼각김밥", 1400, 0));
+		fastfoodinventories.add(new CuInventory(2, "도시락", 5500, 0));
+		fastfoodinventories.add(new CuInventory(3, "김밥", 2200, 0));
+		fastfoodinventories.add(new CuInventory(4, "햄버거", 2000, 0));
+		fastfoodinventories.add(new CuInventory(5, "핫바", 2000, 0));
+		fastfoodinventories.add(new CuInventory(6, "라면", 1200, 0));
+		fastfoodinventories.add(new CuInventory(7, "감동란", 1900, 0));
+		fastfoodinventories.add(new CuInventory(8, "샌드위치", 2400, 0));
+		snackinventories.add(new CuInventory(1, "초코바나나콘", 1200, 0));
+		snackinventories.add(new CuInventory(2, "콘소메맛팝콘", 1200, 0));
+		snackinventories.add(new CuInventory(3, "새우깡", 1000, 0));
+		snackinventories.add(new CuInventory(4, "콘칩", 2800, 0));
+		snackinventories.add(new CuInventory(5, "꼬북칩", 1500, 0));
+		snackinventories.add(new CuInventory(6, "연양갱", 800, 0));
+		snackinventories.add(new CuInventory(7, "치토스", 1500, 0));
+		snackinventories.add(new CuInventory(8, "초코송이", 1000, 0));
+		tobaccoinventories.add(new CuInventory(1, "말보로", 4500, 0));
+		tobaccoinventories.add(new CuInventory(2, "에쎄체인지", 4500, 0));
+		tobaccoinventories.add(new CuInventory(3, "보햄시가", 4500, 0));
+		tobaccoinventories.add(new CuInventory(4, "팔리아멘트", 4500, 0));
+		tobaccoinventories.add(new CuInventory(5, "아이스볼트GT", 4500, 0));
+		tobaccoinventories.add(new CuInventory(6, "레종프렌치", 4500, 0));
+		tobaccoinventories.add(new CuInventory(7, "던힐", 4500, 0));
+		tobaccoinventories.add(new CuInventory(8, "전자담배", 59000, 0));
+		tobaccoinventories.add(new CuInventory(9, "전자담배액상", 35000, 0));
+
+	}
+
+	/* 손요한
+	 * 21.07.30
+	 * 관리자 물품 조회 메소드
+	 */
+	public void list() {
+			switch(kind()) {
+			case 1 :
+				CuDrink.print();
+				break;
+			case 2 :
+				CuTobacco.print();
+				break;
+			case 3 :
+				CuFastfood.print();
+				break;
+			case 4 :
+				CuSnack.print();
+				break;
+			}
+	}
+	
+	/* 오석호
+	 * 관리자 물품 구매, 
+	 * 중복물품 있을시 새로운 값 추가가 아닌 개수만 추가
+	 */
+	public void purchasebyadmin() {
+		switch(kind()) {
+		case 1 :
+			CuDrink.print();
+			int no = nextInt("물건 번호를 입력하세요: ");
+			int ea = nextInt("개수를 입력하세요>");
+			CuInventory drinkinventories = drinkinventoriesfindBy(no);
+			drinkinventories.setEa(drinkinventories.getEa() + ea);
+			ca.setMoney((int)(ca.getMoney() - drinkinventories.getPrice() * 0.8 * ea));
+			break;
+			
+		case 2 :
+			CuTobacco.print();
+			no = nextInt("물건 번호를 입력하세요: ");
+			ea = nextInt("개수를 입력하세요>");
+			CuInventory tobaccoinventories = tobaccoinventoriesfindBy(no);
+			tobaccoinventories.setEa(tobaccoinventories.getEa() + ea);
+			ca.setMoney((int)(ca.getMoney() - tobaccoinventories.getPrice() * 0.8 * ea));
+			break;
+			
+			
+		case 3 :
+			CuFastfood.print();
+			no = nextInt("물건 번호를 입력하세요: ");
+			ea = nextInt("개수를 입력하세요>");
+			CuInventory fastfoodinventories = fastfoodinventoriesfindBy(no);
+			fastfoodinventories.setEa(fastfoodinventories.getEa() + ea);
+			ca.setMoney((int)(ca.getMoney() - fastfoodinventories.getPrice() * 0.8 * ea));
+			break;
+		case 4 :
+			CuSnack.print();
+			no = nextInt("물건 번호를 입력하세요: ");
+			ea = nextInt("개수를 입력하세요>");
+			CuInventory snackinventories = snackinventoriesfindBy(no);
+			snackinventories.setEa(snackinventories.getEa() + ea);
+			ca.setMoney((int)(ca.getMoney() - snackinventories.getPrice() * 0.8 * ea));
+			break;
+		}
+}
+	/* 손요한
+	 * 손님 물품 구매
+	 * 물건 구입 개수만큼 재고--
+	 * 입력한 개수 > 재고 시 재고부족알림
+	 * 구입완료시 구매자 돈 : 원가+((원가*0.2%)*개수)만큼 ++ / 소비자 돈 --
+	 * 수정 필요할 수도 있음
+	 */
+	public void purchasebycustomer() {
+		switch(kind()) {
+		case 1 :
+			for(CuInventory drink : drinkinventories) {
+				System.out.println(drink);
+			}
+			int no = nextInt("구매할 물건 번호를 입력하세요: ");
+			int ea = nextInt("구매할 개수를 입력하세요>");
+			CuInventory drinkinventories = drinkinventoriesfindBy(no);
+			if(ea==0) {
+				System.out.println("0보다 큰 수를 입력하세요");
+			} else if(drinkinventories.getEa()>=ea){
+				drinkinventories.setEa(drinkinventories.getEa() - ea);
+				System.out.println("구매가 완료되었습니다.");
+				ca.setMoney(ca.getMoney() + (drinkinventories.getPrice() * ea));
+				cc.setMoney(cc.getMoney() -	(drinkinventories.getPrice()* ea));
+			} else {
+				System.out.println("재고가 부족합니다.");
+				return;
+			}
+			break;
+			
+		case 2 :
+			for(CuInventory tobacco : tobaccoinventories) {
+				System.out.println(tobacco);
+			}
+			no = nextInt("구매할 물건 번호를 입력하세요: ");
+			ea = nextInt("구매할 개수를 입력하세요>");
+			CuInventory tobaccoinventories = tobaccoinventoriesfindBy(no);
+			if(ea==0) {
+				System.out.println("0보다 큰 수를 입력하세요");
+			}else if(tobaccoinventories.getEa()>=ea) {
+				tobaccoinventories.setEa(tobaccoinventories.getEa() - ea);
+				System.out.println("구매가 완료되었습니다.");
+				ca.setMoney(ca.getMoney() + (tobaccoinventories.getPrice() * ea));
+				cc.setMoney(cc.getMoney() -	(tobaccoinventories.getPrice() * ea));
+			}
+			 else {
+				System.out.println("재고가 부족합니다.");
+				return;
+			}
+			break;
+			
+			
+		case 3 :
+			for(CuInventory fastfood : fastfoodinventories) {
+				System.out.println(fastfood);
+			}
+			no = nextInt("구매할 물건 번호를 입력하세요: ");
+			ea = nextInt("구매할 개수를 입력하세요>");
+			CuInventory fastfoodinventories = fastfoodinventoriesfindBy(no);
+			if(ea==0) {
+				System.out.println("0보다 큰 수를 입력하세요");
+			}
+			if(fastfoodinventories.getEa()>=ea) {
+				fastfoodinventories.setEa(fastfoodinventories.getEa() - ea);
+				System.out.println("구매가 완료되었습니다.");
+				ca.setMoney(ca.getMoney() + (fastfoodinventories.getPrice() * ea));
+				cc.setMoney(cc.getMoney() -	(fastfoodinventories.getPrice() * ea));
+			} else {
+				System.out.println("재고가 부족합니다.");
+				return;
+			}
+			break;
+		case 4 :
+			for(CuInventory snack : snackinventories) {
+				System.out.println(snack);
+			}
+			no = nextInt("구매할 물건 번호를 입력하세요: ");
+			ea = nextInt("구매할 개수를 입력하세요>");
+			CuInventory snackinventories = snackinventoriesfindBy(no);
+			if(ea==0) {
+				System.out.println("0보다 큰 수를 입력하세요");
+			}
+			if(snackinventories.getEa()>=ea) {
+				snackinventories.setEa(snackinventories.getEa() - ea);
+				System.out.println("구매가 완료되었습니다.");
+				ca.setMoney(ca.getMoney() + (snackinventories.getPrice()* ea));
+				cc.setMoney(cc.getMoney() -	(snackinventories.getPrice()* ea));
+			} else {
+				System.out.println("재고가 부족합니다.");
+				return;
+			}
+			break;
+		}
+
+	}
+	
+	/* 오석호
+	 * 21.07.30
+	 * 관리자,손님 재고 조회
+	 * 손님 재고 조회는 수정 필요할 수도 있음
+	 */
+	public void inventory() {
+		switch(kind()) {
+		case 1 :
+			for(CuInventory a : drinkinventories)
+				System.out.println(a);
+			break;
+		case 2 :
+			for(CuInventory a : tobaccoinventories)
+				System.out.println(a);
+			break;
+		case 3 :
+			for(CuInventory a : fastfoodinventories)
+				System.out.println(a);
+			break;
+		case 4 :
+			for(CuInventory a : snackinventories)
+				System.out.println(a);
+			break;
+		case 5 :
+			return;
+		}
+	}
+	/**
+	 * @author 오석호
+	 * 관리자 돈 조회
+	 */
+	public void money() {
+		System.out.println("관리자 돈:"+ca.getMoney());
+	}
+	
+	/* 손요한
+	 * 21.07.31
+	 * 팔린풀품통계 리스트
+	 */
+	List<CuProduct> statistics = new ArrayList<CuProduct>();
+	public void statistics() {
+		printsoldproduct();
+		
+	}
+	/*
+	 * 손요한
+	 * 21.07.31
+	 * 통계 조회시 메뉴창 생성
+	 */
+	public void printsoldproduct() {
+		System.out.println("====상품명===팔린개수====수익==");
+	
+	/* 오석호
+	 * 21.07.30
+	 * 재고 조회시 메뉴창 생성
+	 */
+	}
+	public void printproduct() {
+		System.out.println("===상품번호====상품명========가격========재고====");
+	}
+	/**
+	 * @author 오석호
+	 * 자주쓰이는 문구 매서드만듬
+	 */
+	public int kind() {
+		System.out.println("┌───────────────────────────────────────────┐");
+		int kind = nextInt("│① 음료 ② 담배 ③ 신선식품 ④ 과자 ⑤ 종료│\n"
+						 + "└───────────────────────────────────────────┘");
+		return kind;
+	}
+	/*
+	/* 오석호
+	 * 각종 findBy생성
+	 */
+	// 재고 findby
+	public CuInventory findBy(int no) {
+		for (int i = 0; i < inventories.size(); i++) {
+			if (no == inventories.get(i).getNo()) {
+				return inventories.get(i);
+			}
+		}
+		return null;
+	}
+	// 음료재고 findby
+	public CuInventory drinkinventoriesfindBy(int no) {
+		for (int i = 0; i < drinkinventories.size(); i++) {
+			if (no == drinkinventories.get(i).getNo()) {
+				return drinkinventories.get(i);
+			}
+		}
+		return null;
+	}
+	// 담배재고 findby
+	public CuInventory tobaccoinventoriesfindBy(int no) {
+		for (int i = 0; i < tobaccoinventories.size(); i++) {
+			if (no == tobaccoinventories.get(i).getNo()) {
+				return tobaccoinventories.get(i);
+			}
+		}
+		return null;
+	}
+	// 신선식품재고 findby
+	public CuInventory fastfoodinventoriesfindBy(int no) {
+		for (int i = 0; i < fastfoodinventories.size(); i++) {
+			if (no == fastfoodinventories.get(i).getNo()) {
+				return fastfoodinventories.get(i);
+			}
+		}
+		return null;
+	}
+	// 과자재고 findby
+	public CuInventory snackinventoriesfindBy(int no) {
+		for (int i = 0; i < snackinventories.size(); i++) {
+			if (no == snackinventories.get(i).getNo()) {
+				return snackinventories.get(i);
+			}
+		}
+		return null;
+	}
+	//21.8.5 곽승협 로그인 매서드 추가
+	public void login() {
+		printArray(customer);
+		String pw="";
+		String id = nextLine("회원님의 아이디를 입력해주세요");
+		if (!customer.equals(id)){
+			System.out.println("아이디가 맞지않습니다 아이디를 다시 입력해주세요.");
+			return;
+		} else {
+			pw = nextLine("회원님의 아이디를 입력해주세요");
+		}if (!customer.equals(pw)){
+			System.out.println("아이디가 맞지않습니다 아이디를 다시 입력해주세요.");
+			return;
+		} else {
+			System.out.println("Cu에 오신것을 환영합니다.");
+			}
+		
+		
+		
+		}
+			
+				
+	
+	public void add() {
+		customer.add(new Customer(no++,nextLine("아이디를 입력해주세요"),
+					  nextLine("패스워드를 입력해주세요"),
+					  nextInt("나이를 입력해주세요"),
+					  nextLine("이름을 입력해주세요"),
+					  nextInt("가진 금액을 입력해주세요")
+				));
+		
+		for (int i = 0; i < customer.size(); i++) {
+			
+			System.out.println(	customer.get(i));
+			
+		}
+		return;
+	}
+	public void modify() {
+		String id = nextLine("수정할 회원님의 아이디를 입력하세요");
+		
+	}
+
+	
+	private void printTitle() {
+		System.out.println("┌─────────────────────────────────────────────────┐");
+		System.out.println("회원번호  ID 	P/W   나이   이름 	돈");
+		System.out.println("└─────────────────────────────────────────────────┘");
+	}
+
+	private <Customer> void printArray(List<Customer> arr) {
+		printTitle();
+		for (int i = 0; i < arr.size(); i++) {
+			System.out.println("┌─────────────────────────────────────────────────┐");
+			System.out.println(	arr.get(i));
+			System.out.println("└─────────────────────────────────────────────────┘");
+		}
+	}
+	public Customer findBy1(int no) {
+		for (int i = 0; i < customer.size(); i++) {
+			if (no == customer.get(i).getNo()) {
+				return customer.get(i);
+			}
+		}
+		return null;
+	}
+}
+
+

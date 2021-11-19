@@ -1,0 +1,33 @@
+package cu.vo;
+
+public class CuInventory extends CuProduct {
+
+	/* 오석호
+	 * 21.07.30
+	 * 재고 vo 작성
+	 */
+	public CuInventory() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	public CuInventory(int no, String name, int price, int ea) {
+		super(no, name, price, ea);
+		// TODO Auto-generated constructor stub
+	}
+
+	public CuInventory(int no, String name, int price) {
+		super(no, name, price);
+		// TODO Auto-generated constructor stub
+	}
+
+	@Override
+	public String toString() {
+		 String str =  String.format("%6d         %-10s %5d     %5d", 
+				 getNo(),getName(),getPrice(),getEa());
+		 return str;
+	}
+
+
+
+}

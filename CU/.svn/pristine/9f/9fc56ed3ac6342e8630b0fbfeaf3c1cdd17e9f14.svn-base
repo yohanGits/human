@@ -1,0 +1,46 @@
+package cu.ex;
+
+import static cu.util.CuCommon.*;
+
+import cu.service.Service;
+import cu.service.ServiceImpl;
+//import cu.vo.Customer;
+
+public class Ex {
+	private static boolean flag;
+	public static void main(String[] args) {
+		Service cu = new ServiceImpl();
+		while (!flag) {
+			cu.signUpLogin(cu);
+			System.out.println("┌───────────────────────────┐");
+			int kind = nextInt("│① 구매자 ② 관리자 ③ 종료│\n" 
+							 + "└───────────────────────────┘");
+			switch (kind) {
+			case 1:
+				cu.executeCustomer(cu);
+				break;
+
+			case 2:
+				cu.executeAdmin(cu);
+				break;
+			case 3:
+				End();
+				System.out.println("종료합니다");
+			default:
+				break;
+			}
+		}
+		
+		
+	}
+	/**
+	 * @author 오석호
+	 * 종료 매서드
+	 * 수정할수도있음
+	 */
+
+	public static boolean End() {
+		return flag = true;
+	}
+		
+}

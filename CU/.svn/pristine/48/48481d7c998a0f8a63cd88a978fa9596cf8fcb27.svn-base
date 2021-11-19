@@ -1,0 +1,37 @@
+package cu.vo;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class CuSnack extends CuProduct{
+	static List<CuProduct> snacks = new ArrayList<CuProduct>();
+	public CuSnack() {}
+	public CuSnack(int no, String name, int price) {
+		super(no, name, price);
+	}
+	/* 손요한
+	 * 21.07.30
+	 * 과자품목 리스트
+	 */
+	public static void snack() {
+		snacks.add(new CuSnack(1, "초코바나나콘", 1200));
+		snacks.add(new CuSnack(2, "콘소메맛팝콘", 1200));
+		snacks.add(new CuSnack(3, "새우깡", 1000));
+		snacks.add(new CuSnack(4, "콘칩", 2800));
+		snacks.add(new CuSnack(5, "꼬북칩", 1500));
+		snacks.add(new CuSnack(6, "연양갱", 800));
+		snacks.add(new CuSnack(7, "치토스", 1500));
+		snacks.add(new CuSnack(8, "초코송이", 1000));
+	}
+	public static void print() {
+		for(CuProduct a : snacks) {
+			System.out.println(a);
+		}
+	}
+	@Override
+	public void printmenu() {
+		super.printmenu();
+	}
+	
+}
+

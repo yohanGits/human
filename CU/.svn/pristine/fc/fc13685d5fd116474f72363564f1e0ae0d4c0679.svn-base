@@ -1,0 +1,49 @@
+package cu.ex;
+
+import static cu.util.CuCommon.*;
+
+import cu.service.CuService;
+import cu.service.CuServiceImpl;
+import cu.vo.Customer;
+
+public class CuEx {
+	static boolean flag = false;
+	public static void main(String[] args) {
+		CuService cu = new CuServiceImpl();
+		while (!flag) {
+			System.out.println("┌───────────────────┐");
+			int kind = nextInt("│① 구매자 ② 관리자│\n" 
+							 + "└───────────────────┘");
+			switch (kind) {
+			case 1:
+				cu.executeCustomer(cu);
+				break;
+
+			case 2:
+				cu.executeAdmin(cu);
+				break;
+			default:
+				break;
+			}
+		}
+
+	}
+
+//		CuService cu = new CuServiceImpl();
+//		boolean flag = false;
+//		
+//			int kind = nextInt("1. 로그인 2. 회원가입");
+//			switch (kind) {
+//			case 1:
+//				cu.login();
+//				break;
+//			case 2:
+//				cu.add();
+//			default:
+//			System.out.println("잘못 입력하셨습니다. 다시 입력해주세요");
+//			continue;
+//			}
+//			①. 음료 ②. 담배 ③. 신선식품 ④. 과자 ⑤. 종료 
+
+
+}
